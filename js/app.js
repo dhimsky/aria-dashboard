@@ -23,7 +23,7 @@ function icon(name, size = 16) {
 }
 
 const NAV = [
-  ['overview', 'Overview', 'overview.html', '<span class="ml-auto text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">LIVE</span>'],
+  ['overview', 'Overview', 'index.html', '<span class="ml-auto text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">LIVE</span>'],
   ['meridian', 'Meridian', 'meridian.html', ''],
   ['wallets', 'Wallets', 'wallets.html', ''],
   ['positions', 'Positions', 'positions.html', '<span class="ml-auto text-[9px] px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400">1/5</span>'],
