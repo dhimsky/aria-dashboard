@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA BOT - Settings</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="settings" class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside id="sidebar-drawer" class="w-full md:w-64 bg-[#0a0d16] border-r border-[#192236] flex flex-col shrink-0 md:sticky md:top-0 md:h-screen z-40"></aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-[#07090e] overflow-x-hidden min-w-0">
+
+      <header id="topbar" class="p-3 md:p-4 border-b border-[#182133] bg-[#0c101c] flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-md"></header>
+
+      <div class="p-3 md:p-5 space-y-5">
+
+        <!-- Page Head -->
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Settings</h1>
+            <p class="page-sub">ARIA BOT system health, environment and integrations</p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cols cols-4">
+          <div class="pixel-box stat">
+            <span class="lbl">System Status</span>
+            <span class="val t-g">OPERATIONAL</span>
+            <span class="sub">Frontend monitoring active</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Healthy Services</span>
+            <span class="val t-g">3</span>
+            <span class="sub">6 tracked services</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Warnings</span>
+            <span class="val">0</span>
+            <span class="sub">Needs attention</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Unavailable</span>
+            <span class="val t-r">3</span>
+            <span class="sub">Health source not exposed</span>
+          </div>
+        </div>
+
+        <!-- System Health -->
+        <section class="pixel-box panel">
+          <div class="ph">
+            <div>
+              <h3>System Health</h3>
+              <p>Status of ARIA BOT services and external dependencies</p>
+            </div>
+          </div>
+
+          <div class="cols cols-3">
+
+            <div class="pixel-box panel" style="background:#090d16">
+              <div class="ph" style="margin-bottom:12px">
+                <div>
+                  <b class="text-white text-sm">ARIA Runtime</b>
+                  <p style="margin-top:4px">Meridian trading process</p>
+                </div>
+                <span class="bd ok">HEALTHY</span>
+              </div>
+              <div class="cols cols-2">
+                <div class="kv"><small>State</small><b>Running</b></div>
+                <div class="kv"><small>Latency</small><b>-</b></div>
+              </div>
+            </div>
+
+            <div class="pixel-box panel" style="background:#090d16">
+              <div class="ph" style="margin-bottom:12px">
+                <div>
+                  <b class="text-white text-sm">Dashboard Web</b>
+                  <p style="margin-top:4px">Next.js monitoring interface</p>
+                </div>
+                <span class="bd ok">HEALTHY</span>
+              </div>
+              <div class="cols cols-2">
+                <div class="kv"><small>State</small><b>Online</b></div>
+                <div class="kv"><small>Latency</small><b>Local</b></div>
+              </div>
+            </div>
+
+            <div class="pixel-box panel" style="background:#090d16">
+              <div class="ph" style="margin-bottom:12px">
+                <div>
+                  <b class="text-white text-sm">Backend API</b>
+                  <p style="margin-top:4px">ARIA Dashboard API service</p>
+                </div>
+                <span class="bd ok">HEALTHY</span>
+              </div>
+              <div class="cols cols-2">
+                <div class="kv"><small>State</small><b>Connected</b></div>
+                <div class="kv"><small>Latency</small><b>-</b></div>
+              </div>
+            </div>
+
+            <div class="pixel-box panel" style="background:#090d16">
+              <div class="ph" style="margin-bottom:12px">
+                <div>
+                  <b class="text-white text-sm">Solana RPC</b>
+                  <p style="margin-top:4px">Blockchain RPC connectivity</p>
+                </div>
+                <span class="bd bad">UNAVAILABLE</span>
+              </div>
+              <div class="cols cols-2">
+                <div class="kv"><small>State</small><b>Health source not exposed</b></div>
+                <div class="kv"><small>Latency</small><b>-</b></div>
+              </div>
+            </div>
+
+            <div class="pixel-box panel" style="background:#090d16">
+              <div class="ph" style="margin-bottom:12px">
+                <div>
+                  <b class="text-white text-sm">AI Provider</b>
+                  <p style="margin-top:4px">Screening and validation models</p>
+                </div>
+                <span class="bd bad">UNAVAILABLE</span>
+              </div>
+              <div class="cols cols-2">
+                <div class="kv"><small>State</small><b>Provider health not exposed</b></div>
+                <div class="kv"><small>Latency</small><b>-</b></div>
+              </div>
+            </div>
+
+            <div class="pixel-box panel" style="background:#090d16">
+              <div class="ph" style="margin-bottom:12px">
+                <div>
+                  <b class="text-white text-sm">Telegram</b>
+                  <p style="margin-top:4px">Strategy monitoring and command interface</p>
+                </div>
+                <span class="bd bad">UNAVAILABLE</span>
+              </div>
+              <div class="cols cols-2">
+                <div class="kv"><small>State</small><b>Connection health not exposed</b></div>
+                <div class="kv"><small>Latency</small><b>-</b></div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Environment & Integrations -->
+        <div class="cols cols-2">
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Environment</h3>
+                <p>Current dashboard and bot environment</p>
+              </div>
+            </div>
+            <div class="row">
+              <div>Environment<small></small></div>
+              production
+            </div>
+            <div class="row">
+              <div>Trading Network<small></small></div>
+              solana-mainnet
+            </div>
+            <div class="row">
+              <div>Trading Mode<small></small></div>
+              LIVE
+            </div>
+            <div class="row">
+              <div>Dashboard Version<small></small></div>
+              0.1.0
+            </div>
+            <div class="row">
+              <div>Web Framework<small></small></div>
+              Next.js 16
+            </div>
+            <div class="row">
+              <div>Package Manager<small></small></div>
+              pnpm 11.20.0
+            </div>
+            <div class="row">
+              <div>Backend Version<small></small></div>
+              0.1.0
+            </div>
+            <div class="row">
+              <div>Last Health Check<small></small></div>
+              9/29/2026, 3:24:40 AM
+            </div>
+          </section>
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Integrations</h3>
+                <p>Connected ARIA BOT components</p>
+              </div>
+            </div>
+            <div class="row">
+              <div>Wallet / Solana<small>Runtime connected</small></div>
+              <span class="bd ok">HEALTHY</span>
+            </div>
+            <div class="row">
+              <div>HiveMind<small>Enabled</small></div>
+              <span class="bd ok">HEALTHY</span>
+            </div>
+            <div class="row">
+              <div>Telegram Bot<small>Health not exposed</small></div>
+              <span class="bd bad">UNAVAILABLE</span>
+            </div>
+            <div class="row">
+              <div>Dashboard API<small>v0.1.0</small></div>
+              <span class="bd ok">HEALTHY</span>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Note -->
+        <div class="note info">
+          <b>● Monitoring layer only</b>
+          <p>Service health is shown only when a verified backend source is available. Components without an exposed health source are marked as unavailable instead of assuming a healthy state.</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>

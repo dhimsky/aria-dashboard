@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA BOT - Meridian Agent</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="meridian" class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside id="sidebar-drawer" class="w-full md:w-64 bg-[#0a0d16] border-r border-[#192236] flex flex-col shrink-0 md:sticky md:top-0 md:h-screen z-40"></aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-[#07090e] overflow-x-hidden min-w-0">
+
+      <header id="topbar" class="p-3 md:p-4 border-b border-[#182133] bg-[#0c101c] flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-md"></header>
+
+      <div class="p-3 md:p-5 space-y-5">
+
+        <!-- Page Head -->
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Meridian Agent</h1>
+            <p class="page-sub">DLMM liquidity management engine</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="pill"><i></i>Agent Running</span>
+            <span class="pill"><i></i>HiveMind ON</span>
+            <span class="pill"><i></i>LIVE</span>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cols cols-4">
+          <div class="pixel-box stat">
+            <span class="lbl">Wallet Balance</span>
+            <span class="val">8.0456 SOL</span>
+            <span class="sub">Strategy wallet</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Active Positions</span>
+            <span class="val t-g">0 / 5</span>
+            <span class="sub">Position capacity</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Deploy Amount</span>
+            <span class="val t-c">2.0000 SOL</span>
+            <span class="sub">Per position</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Deployable SOL</span>
+            <span class="val">7.9956 SOL</span>
+            <span class="sub">After gas reserve</span>
+          </div>
+        </div>
+
+        <!-- Strategy & Runtime -->
+        <div class="cols cols-2">
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Strategy Configuration</h3>
+                <p>Current position and exit strategy</p>
+              </div>
+            </div>
+            <div class="cols cols-2">
+              <div class="kv"><small>Strategy</small><b>spot</b></div>
+              <div class="kv"><small>Deploy Amount</small><b>2.0000 SOL</b></div>
+              <div class="kv"><small>Max Positions</small><b>5</b></div>
+              <div class="kv"><small>Position Size</small><b>40%</b></div>
+              <div class="kv"><small>Take Profit</small><b>3%</b></div>
+              <div class="kv"><small>Stop Loss</small><b>-5%</b></div>
+              <div class="kv"><small>Trailing</small><b>Enabled</b></div>
+              <div class="kv"><small>Trailing Trigger</small><b>2%</b></div>
+              <div class="kv"><small>Trailing Drop</small><b>1%</b></div>
+            </div>
+          </section>
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Runtime Configuration</h3>
+                <p>Current Meridian execution settings</p>
+              </div>
+            </div>
+            <div class="cols cols-2">
+              <div class="kv"><small>OOR Timeout</small><b>30 min</b></div>
+              <div class="kv"><small>Manage Cycle</small><b>5 min</b></div>
+              <div class="kv"><small>Screen Cycle</small><b>60 min</b></div>
+              <div class="kv"><small>Cooldown</small><b>3x / 12h</b></div>
+              <div class="kv"><small>Gas Reserve</small><b>0.0500 SOL</b></div>
+              <div class="kv"><small>Min SOL To Open</small><b>0.1500 SOL</b></div>
+              <div class="kv"><small>HiveMind</small><b>Enabled</b></div>
+              <div class="kv"><small>Trading Mode</small><b>LIVE</b></div>
+              <div class="kv"><small>Network</small><b>solana-mainnet</b></div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Screening -->
+        <section class="pixel-box panel">
+          <div class="ph">
+            <div>
+              <h3>Screening Configuration</h3>
+              <p>Pool eligibility and screening thresholds</p>
+            </div>
+          </div>
+          <div class="cols cols-4">
+            <div class="kv"><small>Category</small><b>trending</b></div>
+            <div class="kv"><small>Timeframe</small><b>24h</b></div>
+            <div class="kv"><small>TVL Range</small><b>$50K - $200K</b></div>
+            <div class="kv"><small>Min Organic</small><b>80</b></div>
+            <div class="kv"><small>Min Holders</small><b>5,000</b></div>
+            <div class="kv"><small>Market Cap</small><b>$1M - $10M</b></div>
+            <div class="kv"><small>Min Volume</small><b>$100K</b></div>
+            <div class="kv"><small>Bin Step</small><b>80 - 125</b></div>
+            <div class="kv"><small>Min Fee/aTVL</small><b>2%</b></div>
+            <div class="kv"><small>Min Token Fees</small><b>50 SOL</b></div>
+            <div class="kv"><small>Yield Floor</small><b>0%</b></div>
+            <div class="kv"><small>Min Pool Age</small><b>0 min</b></div>
+          </div>
+        </section>
+
+        <!-- Position & Entry Indicator -->
+        <div class="cols cols-2">
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Current Position</h3>
+                <p>Live DLMM position</p>
+              </div>
+            </div>
+            <div class="empty">
+              <b>No active position</b>
+              <span>Meridian is waiting for an eligible candidate</span>
+            </div>
+          </section>
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Entry Indicator</h3>
+                <p>Current technical entry configuration</p>
+              </div>
+            </div>
+            <div class="row">
+              <div>Indicator<small></small></div>
+              <span class="t-m">not-exposed</span>
+            </div>
+            <div class="row">
+              <div>Timeframe<small></small></div>
+              <span class="t-m">not-exposed</span>
+            </div>
+            <div class="row">
+              <div>State<small></small></div>
+              Waiting
+            </div>
+            <div class="row">
+              <div>HiveMind Validation<small></small></div>
+              Enabled
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA BOT - Activity</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="activity" class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside id="sidebar-drawer" class="w-full md:w-64 bg-[#0a0d16] border-r border-[#192236] flex flex-col shrink-0 md:sticky md:top-0 md:h-screen z-40"></aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-[#07090e] overflow-x-hidden min-w-0">
+
+      <header id="topbar" class="p-3 md:p-4 border-b border-[#182133] bg-[#0c101c] flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-md"></header>
+
+      <div class="p-3 md:p-5 space-y-5">
+
+        <!-- Page Head -->
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Activity</h1>
+            <p class="page-sub">Meridian runtime events, decisions and system activity</p>
+            <p class="page-meta">Last update: 9/29/2026, 3:22:54 AM</p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cols cols-4">
+          <div class="pixel-box stat">
+            <span class="lbl">Events</span>
+            <span class="val">100</span>
+            <span class="sub">Current activity dataset</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Successful Actions</span>
+            <span class="val t-g">0</span>
+            <span class="sub">Completed normally</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Warnings</span>
+            <span class="val t-a">0</span>
+            <span class="sub">Needs attention</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Errors</span>
+            <span class="val t-r">1</span>
+            <span class="sub">Runtime failures</span>
+          </div>
+        </div>
+
+        <!-- Runtime Activity -->
+        <section class="pixel-box panel">
+          <div class="ph">
+            <div>
+              <h3>Runtime Activity</h3>
+              <p>Latest ARIA BOT events</p>
+            </div>
+          </div>
+
+          <div class="ev">
+            <span class="dt"></span>
+            <div style="flex:1;min-width:0">
+              <div class="hd">
+                <div class="flex items-center gap-2">
+                  <span class="bd mute">SYSTEM</span>
+                  <b class="text-white text-sm">Runtime activity</b>
+                </div>
+                <span class="text-[10px] t-m">9/29/2026, 3:22:51 AM</span>
+              </div>
+              <p>[2026-09-29T03:22:51.234Z] [STATE] Position 3VchvMm2oeLNH1RWqn2zS9m7EhvXY1wUuENezjV5AR4Y peak PnL confirmed at 0.06% (2 ticks)</p>
+            </div>
+          </div>
+
+          <div class="ev">
+            <span class="dt"></span>
+            <div style="flex:1;min-width:0">
+              <div class="hd">
+                <div class="flex items-center gap-2">
+                  <span class="bd mute">SYSTEM</span>
+                  <b class="text-white text-sm">Runtime activity</b>
+                </div>
+                <span class="text-[10px] t-m">9/29/2026, 3:22:18 AM</span>
+              </div>
+              <p>[2026-09-29T03:22:18.158Z] [PNL_TICK] poller alive — 1 position(s) tracked (tick #35681)</p>
+            </div>
+          </div>
+
+          <div class="ev">
+            <span class="dt"></span>
+            <div style="flex:1;min-width:0">
+              <div class="hd">
+                <div class="flex items-center gap-2">
+                  <span class="bd mute">SYSTEM</span>
+                  <b class="text-white text-sm">Runtime activity</b>
+                </div>
+                <span class="text-[10px] t-m">9/29/2026, 3:21:18 AM</span>
+              </div>
+              <p>[2026-09-29T03:21:18.147Z] [PNL_TICK] poller alive — 1 position(s) tracked (tick #35661)</p>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>

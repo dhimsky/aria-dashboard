@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA BOT - Overview</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="overview" class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar (diisi oleh js/app.js) -->
+    <aside id="sidebar-drawer" class="w-full md:w-64 bg-[#0a0d16] border-r border-[#192236] flex flex-col shrink-0 md:sticky md:top-0 md:h-screen z-40"></aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-[#07090e] overflow-x-hidden min-w-0">
+
+      <!-- Topbar (diisi oleh js/app.js) -->
+      <header id="topbar" class="p-3 md:p-4 border-b border-[#182133] bg-[#0c101c] flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-md"></header>
+
+      <div class="p-3 md:p-5 space-y-5">
+
+        <!-- Pixel Art AI Office -->
+        <div class="pixel-box overflow-hidden crt-effect border-slate-800 bg-[#06080e]">
+
+          <div class="p-2.5 border-b border-[#182133] bg-[#0a0d18] flex flex-wrap items-center justify-between text-xs gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+              <span class="font-pixel text-[10px] text-emerald-400">ARIA BOT VIRTUAL AI TRADING ROOM</span>
+              <span class="text-slate-500 text-[10px] font-mono hidden sm:inline">| Klik karakter atau papan LED belakang</span>
+            </div>
+            <div class="text-emerald-300 text-[10px] font-mono">
+              Status Bot: <span id="cycle-state-display" class="font-bold text-white uppercase">STANDBY MENUNGGU SIKLUS...</span>
+            </div>
+          </div>
+
+          <!-- Kontrol simulasi -->
+          <div class="p-2 border-b border-[#182133] bg-[#080b13] flex flex-wrap items-center gap-2">
+            <button id="btn-audio-toggle" class="pixel-btn flex items-center gap-1.5 text-[9px]" title="Toggle Chiptune Music">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <span>BGM:</span>
+              <span id="audio-status" class="text-amber-400 font-bold">OFF</span>
+            </button>
+
+            <button id="btn-sfx-toggle" class="pixel-btn flex items-center gap-1.5 text-[9px]" title="Toggle Sound FX">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              <span>SFX:</span>
+              <span id="sfx-status" class="text-emerald-400 font-bold">ON</span>
+            </button>
+
+            <button id="btn-manual-trigger" class="pixel-btn bg-emerald-900/80 hover:bg-emerald-800 border-emerald-500 text-emerald-200 flex items-center gap-1.5 shadow-[0_0_8px_rgba(34,197,94,0.3)]">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>SNIPE BUY</span>
+            </button>
+
+            <div class="flex items-center gap-1 ml-auto">
+              <button class="speed-btn px-2 py-1.5 bg-slate-800 text-emerald-400 border border-emerald-500 rounded text-[9px] font-pixel font-bold" data-speed="1">1x</button>
+              <button class="speed-btn px-2 py-1.5 bg-slate-900 text-slate-400 border border-slate-800 rounded text-[9px] font-pixel" data-speed="2">2x</button>
+              <button class="speed-btn px-2 py-1.5 bg-slate-900 text-slate-400 border border-slate-800 rounded text-[9px] font-pixel" data-speed="4">4x</button>
+              <button id="btn-pause-sim" class="pixel-btn ml-1 text-slate-300 flex items-center justify-center" title="Pause / Resume">
+                <span id="icon-pause">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
+                </span>
+                <span id="icon-play" class="hidden">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Canvas (bisa digeser ke samping di layar kecil) -->
+          <div class="relative bg-[#06080e]">
+            <div class="overflow-x-auto">
+              <div class="relative w-full min-w-[640px]" style="aspect-ratio: 840 / 460;">
+                <canvas id="officeCanvas" class="absolute inset-0 w-full h-full block cursor-pointer"></canvas>
+              </div>
+            </div>
+
+            <div id="canvas-toast" class="absolute top-3 left-1/2 -translate-x-1/2 max-w-[90%] text-center pointer-events-none transition-all duration-300 opacity-0 -translate-y-2 px-3 py-1 bg-black/90 border border-emerald-500 text-emerald-300 text-[10px] font-pixel shadow-xl rounded z-30">
+              RADAR ACTIVE
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="p-2 bg-[#090d16] border-t border-[#182133] flex flex-wrap items-center justify-between text-[11px] text-slate-400 gap-3">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-cyan-400 rounded-sm inline-block"></span> <b>Bob</b> (Scanner)</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-emerald-400 rounded-sm inline-block"></span> <b>Alex</b> (Buyer Sniper)</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-purple-400 rounded-sm inline-block"></span> <b>Cindy</b> (Seller TP/SL)</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-amber-400 rounded-sm inline-block"></span> <b>Satoshi</b> (Big Boss)</span>
+            </div>
+            <div class="text-[10px] text-slate-500 font-mono">
+              <span class="sm:hidden">Geser ke samping untuk melihat seluruh ruangan. </span>Karakter berjalan antar meja saat sinyal BUY / TP dieksekusi
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div class="pixel-box p-3.5 bg-gradient-to-b from-[#111624] to-[#0c101c] border-slate-800">
+            <span class="text-[10px] text-slate-400 font-mono block">Portfolio Value</span>
+            <span id="card-portfolio-val" class="text-lg md:text-xl font-bold font-mono text-white block mt-0.5">$704.20</span>
+            <span class="text-[10px] text-slate-500 font-mono mt-1 block">Strategy assets</span>
+          </div>
+
+          <div class="pixel-box p-3.5 bg-gradient-to-b from-[#111624] to-[#0c101c] border-slate-800">
+            <span class="text-[10px] text-slate-400 font-mono block">SOL Balance</span>
+            <span id="card-sol-bal" class="text-lg md:text-xl font-bold font-mono text-cyan-300 block mt-0.5">6.0038 SOL</span>
+            <span class="text-[10px] text-slate-500 font-mono mt-1 block">Strategy wallet</span>
+          </div>
+
+          <div class="pixel-box p-3.5 bg-gradient-to-b from-[#111624] to-[#0c101c] border-slate-800">
+            <span class="text-[10px] text-slate-400 font-mono block">Total PnL</span>
+            <span id="card-total-pnl" class="text-lg md:text-xl font-bold font-mono text-emerald-400 block mt-0.5">+$42.93</span>
+            <span class="text-[10px] text-emerald-500/80 font-mono mt-1 block">+6.1% all time</span>
+          </div>
+
+          <div class="pixel-box p-3.5 bg-gradient-to-b from-[#111624] to-[#0c101c] border-slate-800">
+            <span class="text-[10px] text-slate-400 font-mono block">Win Rate</span>
+            <span id="card-win-rate" class="text-lg md:text-xl font-bold font-mono text-purple-300 block mt-0.5">26.0%</span>
+            <span id="card-win-count" class="text-[10px] text-slate-500 font-mono mt-1 block">26/100 closed positions</span>
+          </div>
+        </div>
+
+        <!-- Operational Status & Performance Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+          <!-- Operational Status -->
+          <div class="lg:col-span-4 flex flex-col">
+            <div class="pixel-box p-4 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2 gap-2">
+                  <h3 class="text-xs font-pixel text-slate-200">Strategy Operational Status</h3>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-mono shrink-0">Meridian runtime</span>
+                </div>
+                <p class="text-[11px] text-slate-500 font-mono mb-3">Current Meridian runtime configuration</p>
+
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-[#090d16] p-3 rounded-lg border border-slate-800/80">
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Strategy Mode</span>
+                    <span class="text-white font-bold">LIVE</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Active Position</span>
+                    <span id="stat-active-pos" class="text-emerald-400 font-bold">1 / 5</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Deployable SOL</span>
+                    <span id="stat-deploy-sol" class="text-white">5.9538 SOL</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Gas Reserve</span>
+                    <span class="text-white">0.05 SOL</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Min SOL To Open</span>
+                    <span class="text-white">0.15 SOL</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Screen Cycle</span>
+                    <span class="text-white">90 min</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">Manage Cycle</span>
+                    <span class="text-white">5 min</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[10px] block">HiveMind</span>
+                    <span class="text-emerald-400 font-bold">ON</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 bg-[#080b13] rounded-lg border border-slate-800/80 mt-3 space-y-2">
+                <div class="flex items-center justify-between text-xs font-mono">
+                  <span class="font-bold text-slate-300">Engine Status</span>
+                  <span class="text-[9px] text-slate-500">v2.4.1 Meridian</span>
+                </div>
+                <div class="flex items-center justify-between text-xs font-mono">
+                  <span class="text-slate-400">Meridian Runtime</span>
+                  <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Running
+                  </span>
+                </div>
+                <div class="flex items-center justify-between text-xs font-mono">
+                  <span class="text-slate-400">HiveMind</span>
+                  <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    Enabled
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Chart -->
+          <div class="lg:col-span-8 pixel-box p-4 space-y-3 flex flex-col justify-between min-w-0">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="font-pixel text-xs text-white">Strategy Performance</h3>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-mono">Cumulative Realized PnL</span>
+                </div>
+                <p class="text-[11px] text-slate-400 font-mono mt-0.5">Lifetime cumulative realized PnL in USD</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <div class="flex items-center bg-[#090d16] border border-slate-800 rounded p-0.5 text-[10px] font-mono">
+                  <button class="chart-tf-btn px-2 py-1 rounded text-slate-400 hover:text-white" data-tf="1D">1D</button>
+                  <button class="chart-tf-btn px-2 py-1 rounded text-slate-400 hover:text-white" data-tf="1W">1W</button>
+                  <button class="chart-tf-btn px-2 py-1 rounded text-slate-400 hover:text-white" data-tf="1M">1M</button>
+                  <button class="chart-tf-btn px-2 py-1 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-600 font-bold active" data-tf="ALL">ALL</button>
+                </div>
+                <div class="px-2.5 py-1 bg-emerald-950/60 border border-emerald-600/70 rounded text-right">
+                  <span class="text-[9px] text-slate-400 block font-mono">Latest PnL</span>
+                  <span id="chart-latest-pnl" class="text-xs md:text-sm font-bold font-mono text-emerald-400">+$42.93</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative w-full h-64 md:h-72 bg-[#06080e] rounded-md border border-slate-800/80 overflow-hidden">
+              <canvas id="performanceChart" class="w-full h-full block cursor-crosshair"></canvas>
+
+              <div id="chart-tooltip" class="absolute pointer-events-none hidden bg-black/90 border border-emerald-500 text-xs font-mono p-2 rounded shadow-2xl text-slate-200 z-20 whitespace-nowrap">
+                <div id="chart-tt-date" class="text-slate-400 text-[10px]">Date: -</div>
+                <div id="chart-tt-pnl" class="font-bold text-emerald-400">PnL: -</div>
+                <div id="chart-tt-trades" class="text-[10px] text-cyan-300">Trades: -</div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-500 font-mono pt-1">
+              <span>Timestamp Axis: Real-time synced with autonomous bot cycles</span>
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-emerald-400 inline-block"></span> Realized Net Curve</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Active Position & Latest Candidates -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- Active Position -->
+          <div class="pixel-box p-4 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <h3 class="font-pixel text-xs text-white">Active Position</h3>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">Slot: 1 / 5</span>
+            </div>
+
+            <div class="p-3 bg-[#090d16] rounded-lg border border-slate-800/80 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <div class="min-w-0">
+                  <span id="current-token-name" class="font-pixel text-sm text-white block truncate">UNKNOWN</span>
+                  <span class="text-[10px] text-slate-500 font-mono">Micro-cap Solana Pair</span>
+                </div>
+                <span id="current-token-badge" class="px-2 py-0.5 rounded text-[9px] font-pixel bg-amber-950 text-amber-300 border border-amber-600/80 shrink-0">OUT OF RANGE</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 text-xs font-mono pt-1">
+                <div>
+                  <span class="text-slate-500 text-[10px] block">Position Value</span>
+                  <span id="current-pos-val" class="font-bold text-white">$2.00</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 text-[10px] block">PnL</span>
+                  <span id="current-pos-pnl" class="font-bold text-slate-400">$-0.00 / 0.00%</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 text-[10px] block">Fees</span>
+                  <span class="text-slate-300">$0.00</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 text-[10px] block">Age</span>
+                  <span id="current-pos-age" class="text-slate-300 font-mono">0 min</span>
+                </div>
+              </div>
+
+              <div class="space-y-1 pt-1">
+                <div class="flex justify-between text-[10px] font-mono text-slate-400">
+                  <span>Trailing Stop: -5.0%</span>
+                  <span id="progress-tp-target" class="text-emerald-400">TP Target: +15.0%</span>
+                </div>
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div id="pos-progress-bar" class="h-full bg-cyan-400 transition-all duration-300" style="width: 45%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Latest Candidates -->
+          <div class="pixel-box p-4 space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>
+                <h3 class="font-pixel text-xs text-white">Latest Candidates</h3>
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">Scanned by Bob AI</span>
+            </div>
+
+            <div id="candidates-container" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
+          </div>
+
+        </div>
+
+        <!-- Portfolio Assets & Order History -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+          <!-- Portfolio Assets -->
+          <div class="lg:col-span-6 pixel-box p-4 space-y-3 min-w-0">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800/80 pb-2">
+              <div>
+                <h3 class="font-pixel text-xs text-white">Portfolio Assets</h3>
+                <p class="text-[11px] text-slate-400 font-mono mt-0.5">Current assets held by the Strategy wallet</p>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 bg-slate-800 rounded text-slate-400 font-mono shrink-0">10 Tokens</span>
+            </div>
+
+            <div class="overflow-x-auto max-h-64 overflow-y-auto">
+              <table class="w-full text-left text-xs font-mono whitespace-nowrap">
+                <thead class="text-[10px] text-slate-400 uppercase bg-[#090d16] border-b border-slate-800 sticky top-0">
+                  <tr>
+                    <th class="p-2">ASSET</th>
+                    <th class="p-2">AMOUNT</th>
+                    <th class="p-2">PRICE USD</th>
+                    <th class="p-2 text-right">VALUE USD</th>
+                  </tr>
+                </thead>
+                <tbody id="assets-table-body" class="divide-y divide-slate-800/40 text-slate-300">
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-cyan-400">SOL</td>
+                    <td class="p-2" id="asset-sol-amt">6.0038</td>
+                    <td class="p-2 text-slate-400">$117.2800</td>
+                    <td class="p-2 text-right text-emerald-400 font-bold" id="asset-sol-val">$704.03</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-amber-400">ALL</td>
+                    <td class="p-2">1517.411685</td>
+                    <td class="p-2 text-slate-400">$0.0001</td>
+                    <td class="p-2 text-right">$0.14</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-purple-400">GTAB</td>
+                    <td class="p-2">42.936638</td>
+                    <td class="p-2 text-slate-400">$0.0007</td>
+                    <td class="p-2 text-right">$0.03</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-blue-400">USDC</td>
+                    <td class="p-2">0.0107</td>
+                    <td class="p-2 text-slate-400">$0.9946</td>
+                    <td class="p-2 text-right">$0.01</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-emerald-400">TOAD</td>
+                    <td class="p-2">8.127548</td>
+                    <td class="p-2 text-slate-400">$0.0000</td>
+                    <td class="p-2 text-right">$0.00</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-pink-400">goon</td>
+                    <td class="p-2">0.000001</td>
+                    <td class="p-2 text-slate-400">$0.0000</td>
+                    <td class="p-2 text-right">$0.00</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-red-400">MARIO84</td>
+                    <td class="p-2">38.077399</td>
+                    <td class="p-2 text-slate-400">$0.0000</td>
+                    <td class="p-2 text-right">$0.00</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-indigo-400">Z500</td>
+                    <td class="p-2">15.296025</td>
+                    <td class="p-2 text-slate-400">$0.0000</td>
+                    <td class="p-2 text-right">$0.00</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-yellow-400">HBULL</td>
+                    <td class="p-2">0.00001</td>
+                    <td class="p-2 text-slate-400">$0.0000</td>
+                    <td class="p-2 text-right">$0.00</td>
+                  </tr>
+                  <tr class="hover:bg-slate-800/20">
+                    <td class="p-2 font-bold text-teal-400">BATON</td>
+                    <td class="p-2">59.876287</td>
+                    <td class="p-2 text-slate-400">$0.0000</td>
+                    <td class="p-2 text-right">$0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Order History -->
+          <div class="lg:col-span-6 pixel-box p-4 space-y-3 min-w-0">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800/80 pb-2">
+              <div>
+                <h3 class="font-pixel text-xs text-white">Riwayat Order Terbaru</h3>
+                <p class="text-[11px] text-slate-400 font-mono mt-0.5">Live execution feed dari autonomous agent</p>
+              </div>
+              <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1 shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Real-time
+              </span>
+            </div>
+
+            <div class="overflow-x-auto max-h-64 overflow-y-auto">
+              <table class="w-full text-left text-xs font-mono whitespace-nowrap">
+                <thead class="bg-[#090d16] text-slate-400 text-[10px] uppercase sticky top-0 border-b border-slate-800">
+                  <tr>
+                    <th class="p-2">Waktu</th>
+                    <th class="p-2">Token</th>
+                    <th class="p-2">Aksi</th>
+                    <th class="p-2">Entry</th>
+                    <th class="p-2">Exit</th>
+                    <th class="p-2">PnL</th>
+                    <th class="p-2">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="order-history-body" class="divide-y divide-slate-800/50"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /* ========================================================
+       STATE & KONFIGURASI
+       ======================================================== */
+    const state = {
+      portfolioValue: 704.20,
+      solBalance: 6.0038,
+      solPrice: 117.28,
+      totalPnl: 42.93,
+      wins: 26,
+      totalTrades: 100,
+      activePositionsCount: 1,
+      maxPositions: 5,
+      deployableSol: 5.9538,
+      gasReserve: 0.05,
+      minSolToOpen: 0.15,
+      speedMultiplier: 1,
+      isPaused: false,
+      audioEnabled: false,
+      sfxEnabled: true,
+      currentCycleStep: 'IDLE', // IDLE, SCANNING, FOUND, BUYING, MONITORED, SELLING
+      cycleTimer: 0,
+      billboardFlashTimer: 0,
+      billboardFlashColor: '#22c55e',
+      activeTimeframe: 'ALL',
+      monitoredToken: {
+        name: 'UNKNOWN',
+        badge: 'OUT OF RANGE',
+        value: '2.00',
+        pnl: 0.00,
+        pnlPct: 0.00,
+        ageMinutes: 0
+      }
+    };
+
+    const detailedPerformanceData = [
+      { date: '5/5/2025', pnl: 0.00, trades: 12 },
+      { date: '5/7/2025', pnl: 1.15, trades: 18 },
+      { date: '5/9/2025', pnl: 0.80, trades: 24 },
+      { date: '5/11/2025', pnl: -1.90, trades: 31 },
+      { date: '5/13/2025', pnl: -2.30, trades: 38 },
+      { date: '5/15/2025', pnl: 3.40, trades: 45 },
+      { date: '5/17/2025', pnl: 2.80, trades: 51 },
+      { date: '5/19/2025', pnl: 8.90, trades: 60 },
+      { date: '5/21/2025', pnl: 15.40, trades: 72 },
+      { date: '5/23/2025', pnl: 11.20, trades: 80 },
+      { date: '5/25/2025', pnl: 28.50, trades: 88 },
+      { date: '5/27/2025', pnl: 24.10, trades: 93 },
+      { date: '5/29/2025', pnl: 42.93, trades: 100 }
+    ];
+
+    const tokenPool = [
+      { symbol: '$BONK', name: 'Bonk Doge', price: 0.000024, score: 96, vol: '$4.2M' },
+      { symbol: '$WIF', name: 'dogwifhat', price: 2.1800, score: 94, vol: '$12.8M' },
+      { symbol: '$POPCAT', name: 'Popcat Sol', price: 1.4500, score: 91, vol: '$8.1M' },
+      { symbol: '$TOAD', name: 'Toad Pepe', price: 0.00045, score: 88, vol: '$650K' },
+      { symbol: '$GTAB', name: 'Giga Tab', price: 0.00072, score: 85, vol: '$410K' },
+      { symbol: '$GOON', name: 'Goon Coin', price: 0.00081, score: 83, vol: '$220K' },
+      { symbol: '$MARIO84', name: 'Mario 84', price: 0.0012, score: 79, vol: '$180K' },
+      { symbol: '$DRIFT', name: 'Drift SOL', price: 0.8500, score: 89, vol: '$2.4M' }
+    ];
+
+    let currentTradeCandidate = null;
+
+
+    /* ========================================================
+       AUDIO
+       ======================================================== */
+    let audioCtx = null;
+    let bgmIntervalId = null;
+    let bgmStep = 0;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) {
+          audioCtx = new AudioClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSfx(type) {
+      if (!state.sfxEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'radar') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(820, now);
+          osc.frequency.exponentialRampToValueAtTime(1450, now + 0.09);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'found') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(880.00, now + 0.07);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.21);
+        } else if (type === 'buy') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+          osc.start(now);
+          osc.stop(now + 0.19);
+        } else if (type === 'tp') {
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((f, i) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = 'square';
+            o.frequency.setValueAtTime(f, now + i * 0.05);
+            g.gain.setValueAtTime(0.05, now + i * 0.05);
+            g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.05 + 0.14);
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.start(now + i * 0.05);
+            o.stop(now + i * 0.05 + 0.16);
+          });
+        } else if (type === 'sl') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(180, now);
+          osc.frequency.linearRampToValueAtTime(75, now + 0.22);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.26);
+        } else if (type === 'boss') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(130, now);
+          osc.frequency.exponentialRampToValueAtTime(60, now + 0.28);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.31);
+        } else if (type === 'click') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(950, now);
+          gain.gain.setValueAtTime(0.03, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch (err) {
+        console.warn('Audio SFX Error', err);
+      }
+    }
+
+    const chiptuneScale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+    const bgmNotes = [
+      0, 2, 4, 3, 2, 4, 5, 4,
+      1, 3, 4, 2, 0, 3, 2, 1,
+      0, 4, 2, 5, 3, 2, 4, 2,
+      0, 2, 3, 5, 4, 3, 2, 1
+    ];
+
+    function startBgm() {
+      if (!state.audioEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      if (bgmIntervalId) clearInterval(bgmIntervalId);
+
+      bgmStep = 0;
+      bgmIntervalId = setInterval(() => {
+        if (!state.audioEnabled || !audioCtx) return;
+        try {
+          const now = audioCtx.currentTime;
+          const noteIndex = bgmNotes[bgmStep % bgmNotes.length];
+          const freq = chiptuneScale[noteIndex];
+
+          const oscL = audioCtx.createOscillator();
+          const gainL = audioCtx.createGain();
+          oscL.type = 'square';
+          oscL.frequency.setValueAtTime(freq * 1.5, now);
+          gainL.gain.setValueAtTime(0.016, now);
+          gainL.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+          oscL.connect(gainL);
+          gainL.connect(audioCtx.destination);
+          oscL.start(now);
+          oscL.stop(now + 0.12);
+
+          if (bgmStep % 4 === 0) {
+            const oscB = audioCtx.createOscillator();
+            const gainB = audioCtx.createGain();
+            oscB.type = 'triangle';
+            oscB.frequency.setValueAtTime(freq * 0.5, now);
+            gainB.gain.setValueAtTime(0.04, now);
+            gainB.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+            oscB.connect(gainB);
+            gainB.connect(audioCtx.destination);
+            oscB.start(now);
+            oscB.stop(now + 0.22);
+          }
+          bgmStep++;
+        } catch (e) {}
+      }, 160);
+    }
+
+    function stopBgm() {
+      if (bgmIntervalId) {
+        clearInterval(bgmIntervalId);
+        bgmIntervalId = null;
+      }
+    }
+
+
+    /* ========================================================
+       OFFICE CANVAS
+       ======================================================== */
+    const canvas = document.getElementById('officeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Resolusi internal tetap; CSS yang mengatur skala tampilan
+    canvas.width = 840;
+    canvas.height = 460;
+    ctx.imageSmoothingEnabled = false;
+
+    const characters = {
+      screener: {
+        id: 'screener', name: 'Bob', role: 'Screener AI',
+        deskX: 130, deskY: 295, x: 130, y: 295, targetX: 130, targetY: 295,
+        isWalking: false, carryingFolder: false, radarAngle: 0,
+        bubbleText: '', bubbleTimer: 0, frame: 0
+      },
+      buyer: {
+        id: 'buyer', name: 'Alex', role: 'Entry Sniper AI',
+        deskX: 330, deskY: 295, x: 330, y: 295, targetX: 330, targetY: 295,
+        isWalking: false, bubbleText: '', bubbleTimer: 0, frame: 0
+      },
+      seller: {
+        id: 'seller', name: 'Cindy', role: 'TP / Exit AI',
+        deskX: 530, deskY: 295, x: 530, y: 295, targetX: 530, targetY: 295,
+        isWalking: false, bubbleText: '', bubbleTimer: 0, frame: 0
+      },
+      boss: {
+        id: 'boss', name: 'Satoshi', role: 'The Boss',
+        deskX: 725, deskY: 280, x: 725, y: 280, targetX: 725, targetY: 280,
+        isWalking: false, smokeTimer: 0, bubbleText: '', bubbleTimer: 0, frame: 0
+      }
+    };
+
+    let smokeParticles = [];
+    let coinParticles = [];
+
+    const bossQuotes = [
+      'BAGUS, CUAN LAGI HARI INI!',
+      'BOB, RADARNYA JANGAN KENDOR!',
+      'HODL SAMPAI TO THE MOON!',
+      'ALEX, GAS LIMIT KAWAL TERUS!',
+      'CINDY, TAKE PROFIT DI PUCUK YA!',
+      'SAYA PANTAU TERUS DARI SINI.'
+    ];
+
+    function showBubble(char, text, duration = 140) {
+      char.bubbleText = text;
+      char.bubbleTimer = duration;
+    }
+
+    function pxRect(x, y, w, h, col) {
+      ctx.fillStyle = col;
+      ctx.fillRect(Math.floor(x), Math.floor(y), Math.floor(w), Math.floor(h));
+    }
+
+    class SmokeParticle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.4) * 0.4 + 0.3;
+        this.vy = -(Math.random() * 0.5 + 0.4);
+        this.size = Math.random() * 2 + 2;
+        this.alpha = 0.85;
+        this.life = 0;
+        this.maxLife = 50 + Math.random() * 25;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life++;
+        this.alpha = Math.max(0, 0.85 * (1 - this.life / this.maxLife));
+      }
+      draw(c) {
+        c.fillStyle = `rgba(203, 213, 225, ${this.alpha})`;
+        c.fillRect(Math.floor(this.x), Math.floor(this.y), Math.floor(this.size), Math.floor(this.size));
+      }
+    }
+
+    class CoinParticle {
+      constructor(x, y, isWin = true) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 6;
+        this.vy = -(Math.random() * 5.5 + 3);
+        this.gravity = 0.22;
+        this.color = isWin ? '#fbbf24' : '#ef4444';
+        this.size = isWin ? 3 : 2.5;
+        this.life = 0;
+        this.maxLife = 40 + Math.random() * 20;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += this.gravity;
+        this.life++;
+      }
+      draw(c) {
+        const a = Math.max(0, 1 - this.life / this.maxLife);
+        c.fillStyle = this.color;
+        c.globalAlpha = a;
+        c.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
+        c.globalAlpha = 1.0;
+      }
+    }
+
+    function drawWallLedBillboard() {
+      pxRect(0, 0, 840, 185, '#0a0d16');
+
+      ctx.fillStyle = '#161e30';
+      for (let wx = 0; wx < 840; wx += 140) {
+        ctx.fillRect(wx, 0, 2, 185);
+        ctx.fillStyle = '#232f48';
+        ctx.fillRect(wx - 2, 8, 4, 4);
+        ctx.fillRect(wx - 2, 175, 4, 4);
+        ctx.fillStyle = '#161e30';
+      }
+
+      const bbX = 20;
+      const bbY = 12;
+      const bbW = 800;
+      const bbH = 155;
+
+      pxRect(bbX - 4, bbY - 4, bbW + 8, bbH + 8, '#1e293b');
+      pxRect(bbX - 2, bbY - 2, bbW + 4, bbH + 4, '#0f172a');
+
+      if (state.billboardFlashTimer > 0) {
+        ctx.strokeStyle = state.billboardFlashColor;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(bbX - 2, bbY - 2, bbW + 4, bbH + 4);
+        state.billboardFlashTimer--;
+      }
+
+      pxRect(bbX, bbY, bbW, bbH, '#050810');
+      pxRect(bbX, bbY, bbW, 22, '#0c1220');
+      pxRect(bbX, bbY + 22, bbW, 2, '#1e283d');
+
+      ctx.fillStyle = '#22c55e';
+      ctx.font = '8px "Press Start 2P"';
+      ctx.fillText('ARIA BOT // REALTIME METRICS MAINFRAME', bbX + 16, bbY + 15);
+
+      const blink = Math.sin(Date.now() * 0.006) > 0;
+      ctx.fillStyle = blink ? '#22c55e' : '#14532d';
+      ctx.fillRect(bbX + bbW - 135, bbY + 8, 6, 6);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '7px "Press Start 2P"';
+      ctx.fillText('LIVE STREAM', bbX + bbW - 122, bbY + 15);
+
+      const colW = (bbW - 25) / 4;
+      const metrics = [
+        {
+          title: 'PORTFOLIO VALUE',
+          val: `$${state.portfolioValue.toFixed(2)}`,
+          sub: 'STRATEGY ASSETS',
+          valColor: '#38bdf8',
+          accent: '#0284c7'
+        },
+        {
+          title: 'SOL BALANCE',
+          val: `${state.solBalance.toFixed(4)} SOL`,
+          sub: 'WALLET 6dqo..j6Lm',
+          valColor: '#38bdf8',
+          accent: '#0284c7'
+        },
+        {
+          title: 'TOTAL PNL',
+          val: `${state.totalPnl >= 0 ? '+' : ''}$${state.totalPnl.toFixed(2)}`,
+          sub: 'ALL TIME (+6.1%)',
+          valColor: state.totalPnl >= 0 ? '#22c55e' : '#ef4444',
+          accent: state.totalPnl >= 0 ? '#15803d' : '#991b1b',
+          glow: true
+        },
+        {
+          title: 'WIN RATE',
+          val: `${((state.wins / state.totalTrades) * 100).toFixed(1)}%`,
+          sub: `CLOSED (${state.wins}/${state.totalTrades})`,
+          valColor: '#c084fc',
+          accent: '#9333ea'
+        }
+      ];
+
+      metrics.forEach((m, idx) => {
+        const mx = bbX + 6 + idx * (colW + 4);
+        const my = bbY + 28;
+        const mh = 94;
+
+        pxRect(mx, my, colW, mh, '#090e18');
+        pxRect(mx, my, colW, 2, m.accent);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '6px "Press Start 2P"';
+        ctx.fillText(m.title, mx + 8, my + 18);
+
+        ctx.save();
+        if (m.glow) {
+          ctx.shadowColor = m.valColor;
+          ctx.shadowBlur = 8;
+        }
+        ctx.fillStyle = m.valColor;
+        ctx.font = (m.val.length > 10) ? '8px "Press Start 2P"' : '10px "Press Start 2P"';
+        ctx.fillText(m.val, mx + 8, my + 46);
+        ctx.restore();
+
+        for (let b = 0; b < 10; b++) {
+          ctx.fillStyle = (b < 8) ? m.accent : '#1e293b';
+          ctx.fillRect(mx + 8 + b * 11, my + 56, 8, 4);
+        }
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '6px "Press Start 2P"';
+        ctx.fillText(m.sub, mx + 8, my + 78);
+      });
+
+      const tickerY = bbY + bbH - 24;
+      pxRect(bbX, tickerY, bbW, 24, '#090e1a');
+      pxRect(bbX, tickerY, bbW, 1, '#1e293b');
+
+      ctx.font = '6px "Press Start 2P"';
+      ctx.fillStyle = '#22c55e';
+      ctx.fillText('● MERIDIAN: RUNNING', bbX + 16, tickerY + 15);
+      ctx.fillStyle = '#06b6d4';
+      ctx.fillText('● HIVEMIND: ACTIVE', bbX + 220, tickerY + 15);
+      ctx.fillStyle = '#fbbf24';
+      ctx.fillText('● GAS: 0.05 SOL', bbX + 430, tickerY + 15);
+      ctx.fillStyle = '#a855f7';
+      ctx.fillText('● SPEED: ' + state.speedMultiplier + 'x', bbX + 650, tickerY + 15);
+    }
+
+    function drawOfficeFloorAndFurniture() {
+      pxRect(0, 185, 840, 6, '#334155');
+
+      const tileSize = 28;
+      for (let y = 191; y < 460; y += tileSize) {
+        for (let x = 0; x < 840; x += tileSize) {
+          const isEven = (Math.floor(x / tileSize) + Math.floor(y / tileSize)) % 2 === 0;
+          ctx.fillStyle = isEven ? '#10141f' : '#141a27';
+          ctx.fillRect(x, y, tileSize, tileSize);
+        }
+      }
+
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.22)';
+      ctx.fillRect(90, 360, 520, 2);
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.3)';
+      ctx.fillRect(130, 320, 2, 40);
+      ctx.fillRect(330, 320, 2, 40);
+      ctx.fillRect(530, 320, 2, 40);
+
+      // Water cooler
+      pxRect(24, 215, 20, 42, '#cbd5e1');
+      pxRect(26, 195, 16, 22, '#38bdf8');
+      pxRect(29, 222, 10, 4, '#ef4444');
+
+      // Server tower
+      pxRect(54, 200, 26, 58, '#0d131f');
+      pxRect(56, 202, 22, 54, '#172033');
+      for (let sy = 208; sy < 252; sy += 8) {
+        pxRect(58, sy, 18, 2, '#334155');
+        const ledOn = Math.sin(Date.now() * 0.005 + sy) > 0;
+        pxRect(71, sy - 1, 3, 3, ledOn ? '#22c55e' : '#06b6d4');
+      }
+
+      // Bonsai
+      pxRect(800, 215, 24, 25, '#78350f');
+      pxRect(796, 196, 32, 22, '#15803d');
+      pxRect(802, 186, 20, 14, '#22c55e');
+    }
+
+    function drawWorkDesk(x, y, screenColor, isBoss = false) {
+      if (isBoss) {
+        pxRect(x - 45, y - 4, 90, 30, '#1c1917');
+        pxRect(x - 42, y + 16, 84, 24, '#292524');
+        pxRect(x - 48, y + 6, 10, 30, '#44403c');
+        pxRect(x + 38, y + 6, 10, 30, '#44403c');
+
+        pxRect(x - 30, y + 42, 60, 18, '#451a03');
+        pxRect(x - 26, y + 60, 52, 12, '#290e02');
+
+        pxRect(x - 20, y + 34, 10, 8, '#f59e0b');
+        pxRect(x + 10, y + 36, 12, 5, '#64748b');
+        pxRect(x + 13, y + 34, 8, 2, '#ffffff');
+        pxRect(x + 20, y + 34, 2, 2, '#ef4444');
+        return;
+      }
+
+      pxRect(x - 38, y + 18, 76, 26, '#1e293b');
+      pxRect(x - 34, y + 44, 68, 26, '#0f172a');
+
+      pxRect(x - 26, y - 10, 28, 24, '#0f172a');
+      pxRect(x - 24, y - 8, 24, 20, screenColor);
+      pxRect(x - 16, y + 14, 8, 4, '#334155');
+
+      pxRect(x + 4, y - 10, 24, 24, '#0f172a');
+      pxRect(x + 6, y - 8, 20, 20, '#0c1a2e');
+      pxRect(x + 12, y + 14, 6, 4, '#334155');
+
+      if (screenColor === '#0891b2') {
+        characters.screener.radarAngle += 0.05 * state.speedMultiplier;
+        const cx = x - 12;
+        const cy = y + 2;
+        ctx.strokeStyle = '#06b6d4';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(characters.screener.radarAngle) * 7, cy + Math.sin(characters.screener.radarAngle) * 7);
+        ctx.stroke();
+      } else if (screenColor === '#059669') {
+        for (let l = 0; l < 3; l++) {
+          const lw = 8 + Math.sin(Date.now() * 0.01 + l) * 6;
+          pxRect(x - 22, y - 4 + l * 5, Math.max(3, lw), 2, '#86efac');
+        }
+      } else if (screenColor === '#9333ea') {
+        pxRect(x - 22, y + 4, 3, -6, '#10b981');
+        pxRect(x - 17, y + 2, 3, -8, '#10b981');
+        pxRect(x - 12, y + 5, 3, 4, '#ef4444');
+      }
+
+      pxRect(x - 14, y + 20, 24, 4, '#475569');
+      pxRect(x + 18, y + 21, 6, 6, '#e2e8f0');
+      pxRect(x + 22, y + 22, 2, 3, '#94a3b8');
+    }
+
+    function drawPixelCharacter(char) {
+      const { x, y, id, isWalking, frame } = char;
+      const walkBob = isWalking ? Math.sin(frame * 0.5) * 3 : Math.sin(Date.now() * 0.003 + x) * 1.5;
+
+      ctx.save();
+      ctx.translate(Math.floor(x), Math.floor(y + walkBob));
+
+      if (id === 'screener') {
+        pxRect(-8, 0, 16, 18, '#0891b2');
+        pxRect(-6, -12, 12, 12, '#fed7aa');
+        pxRect(-7, -15, 14, 5, '#f97316');
+        pxRect(-5, -8, 10, 3, '#06b6d4');
+        const legShift = isWalking ? Math.sin(frame * 0.5) * 4 : 0;
+        pxRect(-6, 18, 5, 8 + legShift, '#1e293b');
+        pxRect(1, 18, 5, 8 - legShift, '#1e293b');
+        if (char.carryingFolder) {
+          pxRect(6, 4, 10, 8, '#f59e0b');
+          pxRect(7, 5, 8, 6, '#ffffff');
+        }
+      } else if (id === 'buyer') {
+        pxRect(-8, 0, 16, 18, '#059669');
+        pxRect(-6, -12, 12, 12, '#fde68a');
+        pxRect(-7, -15, 14, 5, '#1e293b');
+        pxRect(-8, -10, 2, 8, '#10b981');
+        pxRect(6, -10, 2, 8, '#10b981');
+        pxRect(-7, -14, 14, 2, '#10b981');
+        const legShift = isWalking ? Math.sin(frame * 0.5) * 4 : 0;
+        pxRect(-6, 18, 5, 8 + legShift, '#111827');
+        pxRect(1, 18, 5, 8 - legShift, '#111827');
+        if (!isWalking) {
+          const typeShift = (Math.sin(Date.now() * 0.02) > 0) ? 2 : 0;
+          pxRect(-9, 10 + typeShift, 4, 4, '#fde68a');
+          pxRect(5, 12 - typeShift, 4, 4, '#fde68a');
+        }
+      } else if (id === 'seller') {
+        pxRect(-8, 0, 16, 18, '#7e22ce');
+        pxRect(-6, -12, 12, 12, '#fed7aa');
+        pxRect(-7, -16, 14, 6, '#c084fc');
+        pxRect(-5, -8, 10, 2, '#facc15');
+        const legShift = isWalking ? Math.sin(frame * 0.5) * 4 : 0;
+        pxRect(-6, 18, 5, 8 + legShift, '#3b0764');
+        pxRect(1, 18, 5, 8 - legShift, '#3b0764');
+      } else if (id === 'boss') {
+        pxRect(-10, -2, 20, 22, '#0f172a');
+        pxRect(-3, 2, 6, 14, '#eab308');
+        pxRect(-7, -14, 14, 12, '#ffedd5');
+        pxRect(-8, -18, 16, 6, '#475569');
+        pxRect(-6, -10, 12, 3, '#000000');
+        pxRect(7, 4, 6, 3, '#0f172a');
+        pxRect(12, 2, 4, 4, '#ffedd5');
+        pxRect(15, 1, 6, 2, '#ffffff');
+        pxRect(20, 1, 2, 2, '#ef4444');
+        pxRect(-8, 20, 6, 6, '#0f172a');
+        pxRect(2, 20, 6, 6, '#0f172a');
+      }
+
+      ctx.restore();
+
+      if (char.bubbleTimer > 0 && char.bubbleText) {
+        ctx.save();
+        ctx.font = '7px "Press Start 2P"';
+        const textMetrics = ctx.measureText(char.bubbleText);
+        const bw = textMetrics.width + 14;
+        const bh = 20;
+        const bx = Math.floor(char.x - bw / 2);
+        const by = Math.floor(char.y - 36);
+
+        pxRect(bx, by, bw, bh, '#ffffff');
+        pxRect(bx - 1, by + 1, bw + 2, bh - 2, '#ffffff');
+        pxRect(char.x - 2, by + bh, 4, 4, '#ffffff');
+        pxRect(char.x - 1, by + bh + 4, 2, 2, '#ffffff');
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText(char.bubbleText, bx + 7, by + 13);
+        ctx.restore();
+        char.bubbleTimer--;
+      }
+    }
+
+    function renderOfficeLoop() {
+      drawWallLedBillboard();
+      drawOfficeFloorAndFurniture();
+
+      drawWorkDesk(characters.screener.deskX, characters.screener.deskY, '#0891b2');
+      drawWorkDesk(characters.buyer.deskX, characters.buyer.deskY, '#059669');
+      drawWorkDesk(characters.seller.deskX, characters.seller.deskY, '#9333ea');
+      drawWorkDesk(characters.boss.deskX, characters.boss.deskY, '#d97706', true);
+
+      characters.boss.smokeTimer++;
+      if (characters.boss.smokeTimer % 14 === 0) {
+        smokeParticles.push(new SmokeParticle(characters.boss.x + 21, characters.boss.y - 2));
+      }
+      for (let i = smokeParticles.length - 1; i >= 0; i--) {
+        const p = smokeParticles[i];
+        p.update();
+        p.draw(ctx);
+        if (p.life >= p.maxLife) smokeParticles.splice(i, 1);
+      }
+
+      Object.values(characters).forEach(char => {
+        const dx = char.targetX - char.x;
+        const dy = char.targetY - char.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > 2) {
+          char.isWalking = true;
+          char.frame++;
+          const speed = 2.0 * state.speedMultiplier;
+          char.x += (dx / dist) * Math.min(dist, speed);
+          char.y += (dy / dist) * Math.min(dist, speed);
+        } else {
+          char.x = char.targetX;
+          char.y = char.targetY;
+          char.isWalking = false;
+        }
+
+        drawPixelCharacter(char);
+      });
+
+      for (let i = coinParticles.length - 1; i >= 0; i--) {
+        const cp = coinParticles[i];
+        cp.update();
+        cp.draw(ctx);
+        if (cp.life >= cp.maxLife) coinParticles.splice(i, 1);
+      }
+
+      requestAnimationFrame(renderOfficeLoop);
+    }
+    requestAnimationFrame(renderOfficeLoop);
+
+
+    /* ========================================================
+       PERFORMANCE CHART
+       ======================================================== */
+    const perfCanvas = document.getElementById('performanceChart');
+    const perfCtx = perfCanvas.getContext('2d');
+    const tooltipEl = document.getElementById('chart-tooltip');
+    let chartHoverPoint = null;
+
+    // Biarkan halaman tetap bisa di-scroll vertikal saat menyentuh grafik
+    perfCanvas.style.touchAction = 'pan-y';
+
+    function renderDetailedPerformanceChart() {
+      const rect = perfCanvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      perfCanvas.width = rect.width * dpr;
+      perfCanvas.height = rect.height * dpr;
+
+      const w = perfCanvas.width;
+      const h = perfCanvas.height;
+
+      perfCtx.clearRect(0, 0, w, h);
+
+      const padLeft = 65 * dpr;
+      const padRight = 20 * dpr;
+      const padTop = 25 * dpr;
+      const padBottom = 35 * dpr;
+
+      const plotW = w - padLeft - padRight;
+      const plotH = h - padTop - padBottom;
+
+      const minY = -15;
+      const maxY = 60;
+      const rangeY = maxY - minY;
+
+      const yLabels = [60, 45, 30, 15, 0, -15];
+
+      perfCtx.fillStyle = '#06080e';
+      perfCtx.fillRect(padLeft, padTop, plotW, plotH);
+
+      // Garis horizontal + label sumbu Y
+      yLabels.forEach(val => {
+        const yPos = padTop + plotH - ((val - minY) / rangeY) * plotH;
+
+        perfCtx.beginPath();
+        perfCtx.strokeStyle = (val === 0) ? 'rgba(71, 85, 105, 0.9)' : 'rgba(30, 41, 59, 0.75)';
+        perfCtx.lineWidth = (val === 0) ? 1.5 * dpr : 1 * dpr;
+        perfCtx.setLineDash(val !== 0 ? [3 * dpr, 3 * dpr] : []);
+        perfCtx.moveTo(padLeft, yPos);
+        perfCtx.lineTo(padLeft + plotW, yPos);
+        perfCtx.stroke();
+        perfCtx.setLineDash([]);
+
+        perfCtx.fillStyle = (val === 0) ? '#94a3b8' : (val > 0 ? '#34d399' : '#f87171');
+        perfCtx.font = `${8 * dpr}px "Space Mono", monospace`;
+        perfCtx.textAlign = 'right';
+        perfCtx.textBaseline = 'middle';
+        const labelText = (val > 0 ? `+$${val.toFixed(2)}` : (val < 0 ? `-$${Math.abs(val).toFixed(2)}` : `$${val.toFixed(2)}`));
+        perfCtx.fillText(labelText, padLeft - (8 * dpr), yPos);
+      });
+
+      // Garis vertikal + label tanggal (lebih jarang di layar sempit)
+      const dataLen = detailedPerformanceData.length;
+      const labelStep = (plotW / dpr) < 420 ? 4 : 2;
+
+      detailedPerformanceData.forEach((d, i) => {
+        const xPos = padLeft + (i / (dataLen - 1)) * plotW;
+
+        perfCtx.beginPath();
+        perfCtx.strokeStyle = 'rgba(30, 41, 59, 0.6)';
+        perfCtx.setLineDash([3 * dpr, 3 * dpr]);
+        perfCtx.moveTo(xPos, padTop);
+        perfCtx.lineTo(xPos, padTop + plotH);
+        perfCtx.stroke();
+        perfCtx.setLineDash([]);
+
+        if (i % labelStep === 0 || i === dataLen - 1) {
+          perfCtx.fillStyle = '#64748b';
+          perfCtx.font = `${7.5 * dpr}px "Space Mono", monospace`;
+          perfCtx.textAlign = 'center';
+          perfCtx.textBaseline = 'top';
+          perfCtx.fillText(d.date, xPos, padTop + plotH + (8 * dpr));
+        }
+      });
+
+      const points = detailedPerformanceData.map((d, i) => {
+        const x = padLeft + (i / (dataLen - 1)) * plotW;
+        const y = padTop + plotH - ((d.pnl - minY) / rangeY) * plotH;
+        return { x, y, data: d };
+      });
+
+      if (points.length > 1) {
+        perfCtx.beginPath();
+        perfCtx.moveTo(points[0].x, padTop + plotH);
+        points.forEach(pt => perfCtx.lineTo(pt.x, pt.y));
+        perfCtx.lineTo(points[points.length - 1].x, padTop + plotH);
+        perfCtx.closePath();
+
+        const grad = perfCtx.createLinearGradient(0, padTop, 0, padTop + plotH);
+        grad.addColorStop(0, 'rgba(34, 197, 94, 0.28)');
+        grad.addColorStop(0.7, 'rgba(34, 197, 94, 0.05)');
+        grad.addColorStop(1, 'rgba(34, 197, 94, 0)');
+        perfCtx.fillStyle = grad;
+        perfCtx.fill();
+
+        perfCtx.beginPath();
+        perfCtx.strokeStyle = '#22c55e';
+        perfCtx.lineWidth = 2.5 * dpr;
+        perfCtx.shadowColor = '#22c55e';
+        perfCtx.shadowBlur = 8 * dpr;
+        points.forEach((pt, i) => {
+          if (i === 0) perfCtx.moveTo(pt.x, pt.y);
+          else perfCtx.lineTo(pt.x, pt.y);
+        });
+        perfCtx.stroke();
+        perfCtx.shadowBlur = 0;
+
+        points.forEach((pt, i) => {
+          perfCtx.fillStyle = (i === points.length - 1) ? '#ffffff' : '#22c55e';
+          perfCtx.beginPath();
+          perfCtx.arc(pt.x, pt.y, (i === points.length - 1 ? 4 : 2.5) * dpr, 0, Math.PI * 2);
+          perfCtx.fill();
+        });
+      }
+
+      if (chartHoverPoint) {
+        const hx = chartHoverPoint.x;
+        const hy = chartHoverPoint.y;
+
+        perfCtx.strokeStyle = 'rgba(6, 182, 212, 0.8)';
+        perfCtx.lineWidth = 1 * dpr;
+        perfCtx.setLineDash([2 * dpr, 2 * dpr]);
+
+        perfCtx.beginPath();
+        perfCtx.moveTo(hx, padTop);
+        perfCtx.lineTo(hx, padTop + plotH);
+        perfCtx.stroke();
+
+        perfCtx.beginPath();
+        perfCtx.moveTo(padLeft, hy);
+        perfCtx.lineTo(padLeft + plotW, hy);
+        perfCtx.stroke();
+        perfCtx.setLineDash([]);
+
+        perfCtx.strokeStyle = '#06b6d4';
+        perfCtx.fillStyle = '#ffffff';
+        perfCtx.lineWidth = 2 * dpr;
+        perfCtx.beginPath();
+        perfCtx.arc(hx, hy, 5 * dpr, 0, Math.PI * 2);
+        perfCtx.fill();
+        perfCtx.stroke();
+      }
+    }
+
+    window.addEventListener('resize', renderDetailedPerformanceChart);
+    setTimeout(renderDetailedPerformanceChart, 150);
+
+    // Pointer events supaya hover (mouse) dan sentuhan (HP) sama-sama jalan
+    perfCanvas.addEventListener('pointermove', (e) => {
+      const rect = perfCanvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const mouseX = (e.clientX - rect.left) * dpr;
+
+      const padLeft = 65 * dpr;
+      const padRight = 20 * dpr;
+      const plotW = perfCanvas.width - padLeft - padRight;
+      const dataLen = detailedPerformanceData.length;
+
+      if (mouseX >= padLeft && mouseX <= padLeft + plotW) {
+        const relativeX = (mouseX - padLeft) / plotW;
+        const index = Math.round(relativeX * (dataLen - 1));
+        const clampedIndex = Math.max(0, Math.min(dataLen - 1, index));
+        const targetData = detailedPerformanceData[clampedIndex];
+
+        const minY = -15;
+        const maxY = 60;
+        const padTop = 25 * dpr;
+        const padBottom = 35 * dpr;
+        const plotH = perfCanvas.height - padTop - padBottom;
+
+        const xPos = padLeft + (clampedIndex / (dataLen - 1)) * plotW;
+        const yPos = padTop + plotH - ((targetData.pnl - minY) / (maxY - minY)) * plotH;
+
+        chartHoverPoint = { x: xPos, y: yPos, data: targetData };
+        renderDetailedPerformanceChart();
+
+        document.getElementById('chart-tt-date').innerText = `Date: ${targetData.date}`;
+        document.getElementById('chart-tt-pnl').innerText = `PnL: ${targetData.pnl >= 0 ? '+' : ''}$${targetData.pnl.toFixed(2)}`;
+        document.getElementById('chart-tt-trades').innerText = `Cumulative Trades: ${targetData.trades}`;
+
+        tooltipEl.classList.remove('hidden');
+
+        // Posisi tooltip: pindah ke kiri titik kalau hampir keluar dari kotak grafik
+        const ttW = tooltipEl.offsetWidth;
+        const boxW = perfCanvas.clientWidth;
+        let left = (xPos / dpr) + 15;
+        if (left + ttW > boxW - 4) left = (xPos / dpr) - ttW - 15;
+
+        tooltipEl.style.left = `${Math.max(4, left)}px`;
+        tooltipEl.style.top = `${Math.max(10, (yPos / dpr) - 40)}px`;
+      } else {
+        chartHoverPoint = null;
+        tooltipEl.classList.add('hidden');
+        renderDetailedPerformanceChart();
+      }
+    });
+
+    perfCanvas.addEventListener('pointerleave', () => {
+      chartHoverPoint = null;
+      tooltipEl.classList.add('hidden');
+      renderDetailedPerformanceChart();
+    });
+
+    document.querySelectorAll('.chart-tf-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        playSfx('click');
+        document.querySelectorAll('.chart-tf-btn').forEach(b => {
+          b.className = 'chart-tf-btn px-2 py-1 rounded text-slate-400 hover:text-white';
+        });
+        btn.className = 'chart-tf-btn px-2 py-1 rounded bg-emerald-900/60 text-emerald-300 border border-emerald-600 font-bold active';
+        state.activeTimeframe = btn.dataset.tf;
+        showToast(`Timeframe disetel ke: ${state.activeTimeframe}`);
+        renderDetailedPerformanceChart();
+      });
+    });
+
+
+    /* ========================================================
+       CANDIDATES
+       ======================================================== */
+    const candidatesContainer = document.getElementById('candidates-container');
+    let candidateList = [
+      { symbol: '$BONK', name: 'Bonk Doge', price: '$0.000024', score: 96, vol: '$4.2M', status: 'BUY SIGNAL', badgeClass: 'bg-emerald-950 text-emerald-300 border-emerald-600' },
+      { symbol: '$WIF', name: 'dogwifhat', price: '$2.1800', score: 94, vol: '$12.8M', status: 'QUEUED', badgeClass: 'bg-blue-950 text-blue-300 border-blue-600' },
+      { symbol: '$POPCAT', name: 'Popcat Sol', price: '$1.4500', score: 91, vol: '$8.1M', status: 'ANALYZING', badgeClass: 'bg-purple-950 text-purple-300 border-purple-600' },
+      { symbol: '$TOAD', name: 'Toad Solana', price: '$0.00045', score: 88, vol: '$650K', status: 'FILTERED', badgeClass: 'bg-slate-900 text-slate-400 border-slate-700' }
+    ];
+
+    function renderCandidatesList() {
+      candidatesContainer.innerHTML = '';
+      candidateList.forEach(cand => {
+        const div = document.createElement('div');
+        div.className = 'p-2 bg-[#090d16] hover:bg-[#0e1422] rounded border border-slate-800/80 flex items-center justify-between gap-2 text-xs font-mono transition-all';
+        div.innerHTML = `
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="w-1.5 h-1.5 rounded-full shrink-0 ${cand.status === 'BUY SIGNAL' ? 'bg-emerald-400 animate-ping' : 'bg-slate-500'}"></span>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-cyan-300">${cand.symbol}</span>
+                <span class="text-[9px] text-slate-500 truncate">${cand.name}</span>
+              </div>
+              <div class="text-[10px] text-slate-400">Vol: ${cand.vol} • Price: ${cand.price}</div>
+            </div>
+          </div>
+          <div class="text-right flex flex-col items-end gap-1 shrink-0">
+            <span class="px-1.5 py-0.5 text-[8px] rounded border font-pixel ${cand.badgeClass}">${cand.status}</span>
+            <span class="text-[9px] text-slate-400">Score: <b class="text-amber-400">${cand.score}/100</b></span>
+          </div>
+        `;
+        candidatesContainer.appendChild(div);
+      });
+    }
+    renderCandidatesList();
+
+
+    /* ========================================================
+       SIMULASI
+       ======================================================== */
+    let simStepTimer = 0;
+
+    function setCycleState(stepName, displayText) {
+      state.currentCycleStep = stepName;
+      document.getElementById('cycle-state-display').innerText = displayText;
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('canvas-toast');
+      el.innerText = msg;
+      el.classList.remove('opacity-0', '-translate-y-2');
+      el.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        el.classList.remove('opacity-100', 'translate-y-0');
+        el.classList.add('opacity-0', '-translate-y-2');
+      }, 2300);
+    }
+
+    function runSimulationStep() {
+      if (state.isPaused) return;
+
+      const screener = characters.screener;
+      const buyer = characters.buyer;
+      const seller = characters.seller;
+      const boss = characters.boss;
+
+      simStepTimer++;
+
+      // Tahap 1: Bob memindai kandidat
+      if (state.currentCycleStep === 'IDLE' || state.currentCycleStep === 'SCANNING') {
+        if (simStepTimer > 35 / state.speedMultiplier) {
+          simStepTimer = 0;
+          setCycleState('SCANNING', 'BOB MEMINDAI TOKEN POTENSIAL...');
+          playSfx('radar');
+
+          currentTradeCandidate = tokenPool[Math.floor(Math.random() * tokenPool.length)];
+          showBubble(screener, `SCANNING ${currentTradeCandidate.symbol}...`, 70);
+
+          candidateList.unshift({
+            symbol: currentTradeCandidate.symbol,
+            name: currentTradeCandidate.name,
+            price: `$${currentTradeCandidate.price}`,
+            score: Math.floor(Math.random() * 15 + 85),
+            vol: currentTradeCandidate.vol,
+            status: 'BUY SIGNAL',
+            badgeClass: 'bg-emerald-950 text-emerald-300 border-emerald-600'
+          });
+          if (candidateList.length > 5) candidateList.pop();
+          renderCandidatesList();
+
+          setTimeout(() => {
+            if (state.isPaused) return;
+            setCycleState('FOUND', `DAPAT TOKEN: ${currentTradeCandidate.symbol}!`);
+            playSfx('found');
+            showBubble(screener, `DAPAT ${currentTradeCandidate.symbol}!`, 90);
+            screener.carryingFolder = true;
+            showToast(`[SCREENER] Bob menemukan token ${currentTradeCandidate.symbol} (${currentTradeCandidate.score}/100)`);
+
+            screener.targetX = buyer.deskX - 35;
+            screener.targetY = buyer.deskY;
+          }, 1300 / state.speedMultiplier);
+        }
+      }
+
+      // Tahap 2: Alex eksekusi buy
+      if (state.currentCycleStep === 'FOUND' && Math.abs(screener.x - (buyer.deskX - 35)) < 4) {
+        setCycleState('BUYING', `ALEX EKSEKUSI BUY ${currentTradeCandidate.symbol}`);
+        screener.carryingFolder = false;
+        screener.targetX = screener.deskX;
+        screener.targetY = screener.deskY;
+
+        playSfx('buy');
+        showBubble(buyer, `BUY ${currentTradeCandidate.symbol}!`, 90);
+        showToast(`[BUY SNIPER] Membuka posisi: ${currentTradeCandidate.symbol} (0.15 SOL)`);
+
+        state.billboardFlashTimer = 20;
+        state.billboardFlashColor = '#06b6d4';
+
+        const entrySol = 0.15;
+        state.solBalance = Math.max(0.05, state.solBalance - entrySol);
+        state.deployableSol = Math.max(0, state.solBalance - state.gasReserve);
+        state.activePositionsCount = Math.min(state.maxPositions, state.activePositionsCount + 1);
+
+        state.monitoredToken.name = currentTradeCandidate.symbol;
+        state.monitoredToken.badge = 'MONITORING';
+        state.monitoredToken.value = (entrySol * state.solPrice).toFixed(2);
+        state.monitoredToken.pnl = 0.00;
+        state.monitoredToken.pnlPct = 0.00;
+        state.monitoredToken.ageMinutes = 0;
+
+        addOrderLog({
+          time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+          token: currentTradeCandidate.symbol,
+          type: 'BUY',
+          entry: `$${currentTradeCandidate.price}`,
+          exit: '-',
+          pnl: '$0.00',
+          pnlColor: 'text-slate-400',
+          status: 'OPEN'
+        });
+
+        updateDashboardDOM();
+
+        setTimeout(() => {
+          if (state.isPaused) return;
+          setCycleState('MONITORED', `CINDY MEMANTAU PnL ${currentTradeCandidate.symbol}...`);
+          showBubble(seller, 'MONITORING...', 80);
+        }, 1200 / state.speedMultiplier);
+      }
+
+      // Tahap 3: Cindy eksekusi TP / SL
+      if (state.currentCycleStep === 'MONITORED') {
+        if (simStepTimer > 50 / state.speedMultiplier) {
+          simStepTimer = 0;
+          setCycleState('SELLING', 'CINDY EKSEKUSI EXIT / TP!');
+
+          const isWin = Math.random() > 0.35;
+          const pnlDelta = isWin ? +(Math.random() * 8.2 + 2.5) : -(Math.random() * 3.2 + 1.1);
+          const pnlPctDelta = isWin ? +(Math.random() * 26 + 6) : -(Math.random() * 10 + 4);
+
+          state.totalPnl += pnlDelta;
+          state.portfolioValue += pnlDelta;
+          state.solBalance += (0.15 + (pnlDelta / state.solPrice));
+          state.deployableSol = Math.max(0, state.solBalance - state.gasReserve);
+          state.totalTrades++;
+          if (isWin) state.wins++;
+          state.activePositionsCount = Math.max(0, state.activePositionsCount - 1);
+
+          state.billboardFlashTimer = 28;
+          state.billboardFlashColor = isWin ? '#22c55e' : '#ef4444';
+
+          for (let i = 0; i < 30; i++) {
+            coinParticles.push(new CoinParticle(seller.x, seller.y, isWin));
+          }
+
+          if (isWin) {
+            playSfx('tp');
+            showBubble(seller, `TP CUAN +$${pnlDelta.toFixed(2)}!`, 120);
+            showToast(`[TAKE PROFIT] Cindy merealisasikan keuntungan +$${pnlDelta.toFixed(2)}`);
+            const bQuote = bossQuotes[Math.floor(Math.random() * bossQuotes.length)];
+            setTimeout(() => showBubble(boss, bQuote, 140), 400);
+          } else {
+            playSfx('sl');
+            showBubble(seller, `STOP LOSS -$${Math.abs(pnlDelta).toFixed(2)}`, 110);
+            showToast(`[STOP LOSS] Exit proteksi risiko -$${Math.abs(pnlDelta).toFixed(2)}`);
+            setTimeout(() => showBubble(boss, 'CUT LOSS DISIPLIN, NEXT!', 120), 400);
+          }
+
+          const nowStr = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
+          detailedPerformanceData.push({
+            date: nowStr,
+            pnl: parseFloat(state.totalPnl.toFixed(2)),
+            trades: state.totalTrades
+          });
+          if (detailedPerformanceData.length > 20) {
+            detailedPerformanceData.shift();
+          }
+          renderDetailedPerformanceChart();
+
+          addOrderLog({
+            time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+            token: currentTradeCandidate.symbol,
+            type: 'SELL',
+            entry: `$${currentTradeCandidate.price}`,
+            exit: `$${(currentTradeCandidate.price * (1 + pnlPctDelta / 100)).toFixed(6)}`,
+            pnl: (pnlDelta >= 0 ? `+$${pnlDelta.toFixed(2)}` : `-$${Math.abs(pnlDelta).toFixed(2)}`),
+            pnlColor: (pnlDelta >= 0 ? 'text-emerald-400 font-bold' : 'text-red-400'),
+            status: isWin ? 'TP CLOSED' : 'SL CLOSED'
+          });
+
+          state.monitoredToken.name = 'STANDBY';
+          state.monitoredToken.badge = 'SCANNING NEXT';
+          state.monitoredToken.value = '0.00';
+          state.monitoredToken.pnl = pnlDelta;
+          state.monitoredToken.pnlPct = pnlPctDelta;
+
+          updateDashboardDOM();
+
+          setTimeout(() => {
+            setCycleState('IDLE', 'STANDBY MENUNGGU SIKLUS BERIKUTNYA...');
+          }, 1800 / state.speedMultiplier);
+        }
+      }
+    }
+
+    setInterval(runSimulationStep, 100);
+
+
+    /* ========================================================
+       UPDATE DOM
+       ======================================================== */
+    function updateDashboardDOM() {
+      const pnlSign = state.totalPnl >= 0 ? '+' : '';
+
+      document.getElementById('card-portfolio-val').innerText = `$${state.portfolioValue.toFixed(2)}`;
+      document.getElementById('card-sol-bal').innerText = `${state.solBalance.toFixed(4)} SOL`;
+
+      const pnlCard = document.getElementById('card-total-pnl');
+      pnlCard.innerText = `${pnlSign}$${state.totalPnl.toFixed(2)}`;
+      pnlCard.className = `val ${state.totalPnl >= 0 ? 't-g' : 't-r'}`;
+
+      document.getElementById('card-win-rate').innerText = `${((state.wins / state.totalTrades) * 100).toFixed(1)}%`;
+      document.getElementById('card-win-count').innerText = `${state.wins}/${state.totalTrades} closed positions`;
+
+      const chartPnl = document.getElementById('chart-latest-pnl');
+      chartPnl.innerText = `${pnlSign}$${state.totalPnl.toFixed(2)}`;
+      chartPnl.className = `text-xs md:text-sm font-bold font-mono ${state.totalPnl >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+
+      document.getElementById('stat-active-pos').innerText = `${state.activePositionsCount} / ${state.maxPositions}`;
+      document.getElementById('stat-deploy-sol').innerText = `${state.deployableSol.toFixed(4)} SOL`;
+
+      document.getElementById('asset-sol-amt').innerText = state.solBalance.toFixed(4);
+      document.getElementById('asset-sol-val').innerText = `$${(state.solBalance * state.solPrice).toFixed(2)}`;
+
+      document.getElementById('current-token-name').innerText = state.monitoredToken.name;
+      document.getElementById('current-token-badge').innerText = state.monitoredToken.badge;
+      document.getElementById('current-pos-val').innerText = `$${state.monitoredToken.value}`;
+
+      const posPnlSign = state.monitoredToken.pnl >= 0 ? '+' : '';
+      const posPnlEl = document.getElementById('current-pos-pnl');
+      posPnlEl.innerText = `${posPnlSign}$${state.monitoredToken.pnl.toFixed(2)} / ${posPnlSign}${state.monitoredToken.pnlPct.toFixed(2)}%`;
+      posPnlEl.className = `font-bold ${state.monitoredToken.pnl >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+    }
+
+    function addOrderLog(order) {
+      const tbody = document.getElementById('order-history-body');
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-slate-800/30 transition-colors';
+      tr.innerHTML = `
+        <td class="p-2 text-slate-400 text-[10px]">${order.time}</td>
+        <td class="p-2 font-bold text-cyan-300">${order.token}</td>
+        <td class="p-2">
+          <span class="px-1.5 py-0.5 text-[8px] rounded font-pixel ${order.type === 'BUY' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600' : 'bg-purple-950 text-purple-300 border border-purple-600'}">
+            ${order.type}
+          </span>
+        </td>
+        <td class="p-2 text-slate-300">${order.entry}</td>
+        <td class="p-2 text-slate-300">${order.exit}</td>
+        <td class="p-2 ${order.pnlColor}">${order.pnl}</td>
+        <td class="p-2 text-[10px] text-slate-400">${order.status}</td>
+      `;
+      tbody.insertBefore(tr, tbody.firstChild);
+
+      if (tbody.children.length > 25) {
+        tbody.removeChild(tbody.lastChild);
+      }
+    }
+
+    addOrderLog({ time: '09:22:15', token: '$TOAD', type: 'SELL', entry: '$0.00042', exit: '$0.00051', pnl: '+$14.20', pnlColor: 'text-emerald-400 font-bold', status: 'TP CLOSED' });
+    addOrderLog({ time: '09:14:02', token: '$BONK', type: 'BUY', entry: '$0.000021', exit: '$0.000019', pnl: '-$4.15', pnlColor: 'text-red-400', status: 'SL CLOSED' });
+    addOrderLog({ time: '09:05:48', token: '$WIF', type: 'SELL', entry: '$1.95', exit: '$2.24', pnl: '+$32.88', pnlColor: 'text-emerald-400 font-bold', status: 'TP CLOSED' });
+
+
+    /* ========================================================
+       INTERAKSI
+       (sidebar mobile & tombol salin dompet sekarang ditangani js/app.js)
+       ======================================================== */
+
+    // Klik karakter / papan LED di canvas
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mx = (e.clientX - rect.left) * scaleX;
+      const my = (e.clientY - rect.top) * scaleY;
+
+      if (my < 170 && mx > 20 && mx < 820) {
+        playSfx('click');
+        state.billboardFlashTimer = 22;
+        state.billboardFlashColor = '#06b6d4';
+        showToast('[WALL MAINFRAME] Display data tersinkronisasi penuh dengan bot');
+        return;
+      }
+
+      Object.values(characters).forEach(char => {
+        const dist = Math.sqrt((mx - char.x) ** 2 + (my - char.y) ** 2);
+        if (dist < 42) {
+          playSfx(char.id === 'boss' ? 'boss' : 'click');
+          if (char.id === 'boss') {
+            const quote = bossQuotes[Math.floor(Math.random() * bossQuotes.length)];
+            showBubble(char, quote, 150);
+            smokeParticles.push(new SmokeParticle(char.x + 20, char.y));
+          } else if (char.id === 'screener') {
+            showBubble(char, 'RADAR CEPAT! SIAP CARI SINYAL 100x!', 100);
+          } else if (char.id === 'buyer') {
+            showBubble(char, 'SNIPER ON! GAS LIMIT & SLIPPAGE AMAN!', 100);
+          } else if (char.id === 'seller') {
+            showBubble(char, 'TRAILING STOP AKTIF! SIAP TAKE PROFIT!', 100);
+          }
+        }
+      });
+    });
+
+    // Snipe manual
+    document.getElementById('btn-manual-trigger').addEventListener('click', () => {
+      playSfx('click');
+      setCycleState('IDLE', 'MANUAL SNIPE DIPICU!');
+      simStepTimer = 999;
+      runSimulationStep();
+      showToast('MANUAL TRIGGER: Bob & Alex segera memproses order');
+    });
+
+    // Kecepatan simulasi
+    document.querySelectorAll('.speed-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        playSfx('click');
+        document.querySelectorAll('.speed-btn').forEach(b => {
+          b.className = 'speed-btn px-2 py-1.5 bg-slate-900 text-slate-400 border border-slate-800 rounded text-[9px] font-pixel';
+        });
+        btn.className = 'speed-btn px-2 py-1.5 bg-slate-800 text-emerald-400 border border-emerald-500 rounded text-[9px] font-pixel font-bold';
+        state.speedMultiplier = parseInt(btn.dataset.speed);
+        showToast(`Kecepatan disetel ke ${state.speedMultiplier}x`);
+      });
+    });
+
+    // Pause / Resume
+    const pauseBtn = document.getElementById('btn-pause-sim');
+    pauseBtn.addEventListener('click', () => {
+      playSfx('click');
+      state.isPaused = !state.isPaused;
+      document.getElementById('icon-pause').classList.toggle('hidden', state.isPaused);
+      document.getElementById('icon-play').classList.toggle('hidden', !state.isPaused);
+      showToast(state.isPaused ? 'Bot simulasi di-pause' : 'Bot simulasi dilanjutkan');
+    });
+
+    // BGM
+    document.getElementById('btn-audio-toggle').addEventListener('click', () => {
+      initAudio();
+      state.audioEnabled = !state.audioEnabled;
+      const statusText = document.getElementById('audio-status');
+      if (state.audioEnabled) {
+        statusText.innerText = 'ON';
+        statusText.className = 'text-emerald-400 font-bold';
+        startBgm();
+        showToast('8-Bit Chiptune BGM: ON');
+      } else {
+        statusText.innerText = 'OFF';
+        statusText.className = 'text-amber-400 font-bold';
+        stopBgm();
+        showToast('8-Bit Chiptune BGM: OFF');
+      }
+    });
+
+    // SFX
+    document.getElementById('btn-sfx-toggle').addEventListener('click', () => {
+      state.sfxEnabled = !state.sfxEnabled;
+      const sfxStatus = document.getElementById('sfx-status');
+      if (state.sfxEnabled) {
+        sfxStatus.innerText = 'ON';
+        sfxStatus.className = 'text-emerald-400 font-bold';
+        playSfx('click');
+        showToast('SFX Efek Suara: ON');
+      } else {
+        sfxStatus.innerText = 'OFF';
+        sfxStatus.className = 'text-slate-500 font-bold';
+        showToast('SFX Efek Suara: OFF');
+      }
+    });
+
+    // Sapaan awal
+    setTimeout(() => {
+      showBubble(characters.boss, 'WELCOME TO ARIA HQ!', 160);
+      showToast('Dashboard aktif. Bot memantau posisi...');
+    }, 1000);
+  </script>
+
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>

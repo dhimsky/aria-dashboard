@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA BOT - Configuration</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="configuration" class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside id="sidebar-drawer" class="w-full md:w-64 bg-[#0a0d16] border-r border-[#192236] flex flex-col shrink-0 md:sticky md:top-0 md:h-screen z-40"></aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-[#07090e] overflow-x-hidden min-w-0">
+
+      <header id="topbar" class="p-3 md:p-4 border-b border-[#182133] bg-[#0c101c] flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-md"></header>
+
+      <div class="p-3 md:p-5 space-y-5">
+
+        <!-- Page Head -->
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Configuration</h1>
+            <p class="page-sub">Current ARIA BOT runtime configuration</p>
+            <p class="page-meta">Last update: 9/29/2026, 3:24:13 AM</p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cols cols-4">
+          <div class="pixel-box stat">
+            <span class="lbl">Trading Mode</span>
+            <span class="val t-a">LIVE</span>
+            <span class="sub">dryRun = false</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Strategy</span>
+            <span class="val t-c">SPOT</span>
+            <span class="sub">Meridian DLMM</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">HiveMind</span>
+            <span class="val t-g">ENABLED</span>
+            <span class="sub">AI validation</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Config Source</span>
+            <span class="val">Backend API</span>
+            <span class="sub">Read-only dashboard</span>
+          </div>
+        </div>
+
+        <!-- Strategy & Timing -->
+        <div class="cols cols-2">
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Strategy</h3>
+                <p>Capital deployment and exit behavior</p>
+              </div>
+            </div>
+            <div class="cols cols-2 mono">
+              <div class="kv"><small>strategy</small><b>spot</b></div>
+              <div class="kv"><small>deployAmountSol</small><b>2</b></div>
+              <div class="kv"><small>maxPositions</small><b>5</b></div>
+              <div class="kv"><small>positionSizePct</small><b>0.4</b></div>
+              <div class="kv"><small>takeProfitPct</small><b>3</b></div>
+              <div class="kv"><small>stopLossPct</small><b>-5</b></div>
+              <div class="kv"><small>trailingEnabled</small><b>true</b></div>
+              <div class="kv"><small>trailingTriggerPct</small><b>2</b></div>
+              <div class="kv"><small>trailingDropPct</small><b>1</b></div>
+            </div>
+          </section>
+
+          <section class="pixel-box panel">
+            <div class="ph">
+              <div>
+                <h3>Timing &amp; Execution</h3>
+                <p>Runtime intervals and wallet protections</p>
+              </div>
+            </div>
+            <div class="cols cols-2 mono">
+              <div class="kv"><small>gasReserve</small><b>0.05</b></div>
+              <div class="kv"><small>minSolToOpen</small><b>0.15</b></div>
+              <div class="kv"><small>oorTimeoutMinutes</small><b>30</b></div>
+              <div class="kv"><small>manageIntervalMinutes</small><b>5</b></div>
+              <div class="kv"><small>screenIntervalMinutes</small><b>60</b></div>
+              <div class="kv"><small>cooldownMaxDeploys</small><b>3</b></div>
+              <div class="kv"><small>cooldownWindowHours</small><b>12</b></div>
+              <div class="kv"><small>dryRun</small><b>false</b></div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Screening -->
+        <section class="pixel-box panel">
+          <div class="ph">
+            <div>
+              <h3>Screening</h3>
+              <p>Pool discovery and eligibility thresholds</p>
+            </div>
+          </div>
+          <div class="cols cols-3 mono">
+            <div class="kv"><small>category</small><b>trending</b></div>
+            <div class="kv"><small>timeframe</small><b>24h</b></div>
+            <div class="kv"><small>minOrganic</small><b>80</b></div>
+            <div class="kv"><small>minHolders</small><b>5000</b></div>
+            <div class="kv"><small>minMcap</small><b>1000000</b></div>
+            <div class="kv"><small>maxMcap</small><b>10000000</b></div>
+            <div class="kv"><small>minTvl</small><b>50000</b></div>
+            <div class="kv"><small>maxTvl</small><b>200000</b></div>
+            <div class="kv"><small>minVolume</small><b>100000</b></div>
+            <div class="kv"><small>minBinStep</small><b>80</b></div>
+            <div class="kv"><small>maxBinStep</small><b>125</b></div>
+            <div class="kv"><small>minFeeActiveTvlRatio</small><b>2</b></div>
+            <div class="kv"><small>minTokenFeesSol</small><b>50</b></div>
+            <div class="kv"><small>yieldFloorPct</small><b>0</b></div>
+            <div class="kv"><small>minPoolAgeMinutes</small><b>0</b></div>
+          </div>
+        </section>
+
+        <!-- AI / HiveMind -->
+        <section class="pixel-box panel">
+          <div class="ph">
+            <div>
+              <h3>AI / HiveMind</h3>
+              <p>AI-assisted validation and entry signal configuration</p>
+            </div>
+          </div>
+          <div class="cols cols-3 mono">
+            <div class="kv"><small>hiveMindEnabled</small><b>true</b></div>
+            <div class="kv"><small>entryIndicator</small><b><span class="t-m">not-exposed</span></b></div>
+            <div class="kv"><small>entryTimeframe</small><b><span class="t-m">not-exposed</span></b></div>
+            <div class="kv"><small>managementModel</small><b><span class="t-m">not-exposed</span></b></div>
+            <div class="kv"><small>screeningModel</small><b><span class="t-m">not-exposed</span></b></div>
+            <div class="kv"><small>generalModel</small><b><span class="t-m">not-exposed</span></b></div>
+          </div>
+        </section>
+
+        <!-- Note -->
+        <div class="note info">
+          <b>● Configuration is read-only</b>
+          <p>Configuration values are now loaded from the ARIA Dashboard API. Editing will remain disabled until authentication, validation, confirmation and audit layers are implemented.</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>

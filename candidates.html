@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA BOT - Candidates</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="candidates" class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <div class="flex-1 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar -->
+    <aside id="sidebar-drawer" class="w-full md:w-64 bg-[#0a0d16] border-r border-[#192236] flex flex-col shrink-0 md:sticky md:top-0 md:h-screen z-40"></aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-[#07090e] overflow-x-hidden min-w-0">
+
+      <header id="topbar" class="p-3 md:p-4 border-b border-[#182133] bg-[#0c101c] flex flex-wrap items-center justify-between gap-3 sticky top-0 z-30 shadow-md"></header>
+
+      <div class="p-3 md:p-5 space-y-5">
+
+        <!-- Page Head -->
+        <div class="page-head">
+          <div>
+            <h1 class="page-title">Candidates</h1>
+            <p class="page-sub">Meridian pool screening results</p>
+            <p class="page-meta">Last update: 9/29/2026, 3:22:11 AM</p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cols cols-4">
+          <div class="pixel-box stat">
+            <span class="lbl">Total Candidates</span>
+            <span class="val">0</span>
+            <span class="sub">Latest screening cycle</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Eligible</span>
+            <span class="val t-g">0</span>
+            <span class="sub">Passed screening</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Watch</span>
+            <span class="val t-a">0</span>
+            <span class="sub">Needs validation</span>
+          </div>
+          <div class="pixel-box stat">
+            <span class="lbl">Rejected</span>
+            <span class="val t-r">0</span>
+            <span class="sub">Failed threshold</span>
+          </div>
+        </div>
+
+        <!-- Latest Screening -->
+        <section class="pixel-box panel">
+          <div class="ph">
+            <div>
+              <h3>Latest Screening</h3>
+              <p>Candidate pools evaluated by Meridian</p>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Pair</th>
+                  <th>Fee/aTVL</th>
+                  <th>Volume 24h</th>
+                  <th>In-Range</th>
+                  <th>Organic</th>
+                  <th>TVL</th>
+                  <th>Age</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="empty">
+            <b>Candidate data unavailable</b>
+            <span></span>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/pages.js"></script>
+</body>
+
+</html>
